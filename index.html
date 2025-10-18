@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>PS A — Document Formatter & Exporter (Vanilla JS)</title>
+
+  <!-- Basic styling -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Libraries (CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docx@8.3.0/build/index.umd.js"></script>
+</head>
+<body>
+  <div class="app">
+    <header class="app-header">
+      <h1>The Standardized Document Generator</h1>
+      <div class="meta">Exports: DOCX & PDF — client-side</div>
+      <!-- Dark Mode Toggle -->
+      <button id="theme-toggle" class="theme-toggle">🌙</button>
+    </header>
+
+    <main class="grid">
+      <section class="panel input-panel">
+        <h2>Input</h2>
+
+        <label>Paste text / Markdown</label>
+        <textarea id="text-input" rows="12" placeholder="# Title\n\nYour content..."></textarea>
+
+        <!-- Page Controls -->
+        <div class="page-controls" style="justify-content: center;">
+          <button id="remove-page">-1 Page</button>
+          <span id="page-count">1</span> Page(s)
+          <button id="add-page">+1 Page</button>
+        </div>
+
+        <label>Or upload .txt / .md file</label>
+        <input id="file-input" type="file" accept=".txt,.md,text/*" />
+        <br/>
+
+        <label>File name</label>
+        <input id="file-name" type="text" value="document" />
+
+        <label>Template</label>
+        <select id="template-select">
+          <option value="resume">Resume</option>
+          <option value="letter">Business Letter</option>
+          <option value="formal_bank">Bank Letter</option>
+          <option value="formal_school">School Letter</option>
+          <option value="formal_college">College Letter</option>
+          <option value="report">Project Report</option>
+          <option value="meeting">Meeting Minutes</option>
+          <option value="summary">Executive Summary</option>
+          <option value="academic">Academic Paper</option>
+          <option value="casestudy">Case Study</option>
+        </select>
+
+        <div class="actions">
+          <button id="download-docx">Download DOCX</button>
+          <button id="download-pdf">Download PDF</button>
+          <button id="toggle-preview">Toggle Preview</button>
+          <button id="btn-go-preview">Go to Preview</button>
+          <button id="share-link" type="button">Share Preview</button>
+        </div>
+
+        <hr />
+        <h3>Custom CSS (applies to preview & PDF)</h3>
+        <textarea id="custom-css" rows="6">/* .document-frame { color: #111 } */</textarea>
+
+        <div class="small-actions">
+          <button id="save-local">Save (local)</button>
+          <button id="load-local">Load (local)</button>
+          <button id="reset-sample">Load Sample</button>
+        </div>
+      </section>
+
+      <section class="panel preview-panel">
+        <div class="preview-header">
+          <h2>Preview</h2>
+          <div class="note">Export-ready: What you see is what you get.</div>
+        </div>
+
+        <div id="preview-container">
+          <div id="document-frame" class="document-frame">
+            <div id="doc-header" class="doc-header"></div>
+            <div id="doc-content" class="doc-content"></div>
+            <div id="doc-footer" class="doc-footer"></div>
+          </div>
+        </div>
+
+        <div class="preview-hint">Tip: Use the custom CSS area to adjust fonts/spacing/colors.</div>
+      </section>
+    </main>
+
+    <button id="btn-go-top" class="scroll-btn">Back to Top ↑</button>
+    <footer class="app-footer">Team ShadowStack.</footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
